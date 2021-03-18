@@ -1,6 +1,5 @@
 {
-    "python.pythonPath": "C:\\Users\\admin\\.virtualenvs\\airbnb-clone-2021-EiknWypm\\Scripts\\python.exe",
-    "python.linting.flake8Enabled" : true,
+    "python.linting.flake8Enabled": true,
     "python.linting.pylintEnabled": false,
     "python.linting.enabled": true,
     "python.formatting.provider": "black",
