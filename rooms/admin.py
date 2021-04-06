@@ -15,6 +15,7 @@ class ItemAdmin(admin.ModelAdmin):
 
     pass
 
+
 class PhotoInline(admin.TabularInline):
 
     model = models.Photo
@@ -36,39 +37,17 @@ class RoomAdmin(admin.ModelAdmin):
                     "description",
                     "country",
                     "city",
+                    "address",
                     "price",
+                    "room_type",
                 )
             },
         ),
-        (
-            "Times",
-            {
-                "fields": (
-                    "check_in",
-                    "check_out",
-                    "instant_book",
-                )
-            },
-        ),
-        (
-            "Spaces",
-            {
-                "fields": (
-                    "beds",
-                    "bedrooms",
-                    "baths",
-                )
-            },
-        ),
+        ("Times", {"fields": ("check_in", "check_out", "instant_book")}),
+        ("Spaces", {"fields": ("guests", "beds", "bedrooms", "baths")}),
         (
             "More About the Space",
-            {
-                "fields": (
-                    "amenities",
-                    "facilities",
-                    "house_rules",
-                )
-            },
+            {"fields": ("amenities", "facilities", "house_rules")},
         ),
         ("Last Details", {"fields": ("host",)}),
     )
@@ -78,7 +57,6 @@ class RoomAdmin(admin.ModelAdmin):
         "country",
         "city",
         "price",
-        "address",
         "guests",
         "beds",
         "bedrooms",
@@ -86,7 +64,7 @@ class RoomAdmin(admin.ModelAdmin):
         "check_in",
         "check_out",
         "instant_book",
-        "count_amentities",
+        "count_amenities",
         "count_photos",
         "total_rating",
     )
@@ -104,26 +82,25 @@ class RoomAdmin(admin.ModelAdmin):
 
     raw_id_fields = ("host",)
 
-    search_fields = ("city", "host__username")
+    search_fields = ("=city", "^host__username")
 
-    filter_horizontal = (
-        "amenities",
-        "facilities",
-        "house_rules",
-    )
+    filter_horizontal = ("amenities", "facilities", "house_rules")
 
-    def count_amentities(self, obj):
+    def count_amenities(self, obj):
         return obj.amenities.count()
+
+    count_amenities.short_description = "Amenity Count"
 
     def count_photos(self, obj):
         return obj.photos.count()
+
     count_photos.short_description = "Photo Count"
 
 
 @admin.register(models.Photo)
 class PhotoAdmin(admin.ModelAdmin):
 
-    """ Photo Admin Definition """
+    """ Phot Admin Definition """
 
     list_display = ("__str__", "get_thumbnail")
 
