@@ -1,8 +1,9 @@
 from django.core.management.base import BaseCommand
 from rooms.models import Amenity
 
+
 class Command(BaseCommand):
-    
+
     help = "This command creates amenities"
 
     def handle(self, *args, **options):
